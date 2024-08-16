@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "./aws-project/aws_project"
+    ]
+}
