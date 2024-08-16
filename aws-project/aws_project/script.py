@@ -1,5 +1,6 @@
 from csv_to_parquet import procces_csv
 
+print("o codigo esta sendo executado")
 def main():
 
     csv_file = 'C:\\Users\\lurch\\Documents\\aws-project\\data\\Netflix_movies_and_tv_shows_clustering.csv'

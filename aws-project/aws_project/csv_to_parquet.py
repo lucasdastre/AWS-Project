@@ -3,31 +3,28 @@ import boto3
 import os
 import pyarrow as pa
 import pyarrow.parquet as pq
+from dotenv import load_dotenv
 
 
 # Carregar variáveis de ambiente
-# load_dotenv()
+load_dotenv()
 
-aws_access_key_id = os.getenv('AWS_ACCESS_KEY_ID')
-aws_secret_access_key = os.getenv('AWS_SECRET_ACCESS_KEY')
-aws_region = os.getenv('AWS_REGION')
-
-
-print(aws_access_key_id)
-print(aws_secret_access_key)
-print(aws_region)
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+AWS_REGION = os.getenv('AWS_REGION')
 
 
 def procces_csv(csv_file: str, output_dir: str, bucket_name: str, s3_key: str) -> None:
     os.makedirs(output_dir, exist_ok=True)
 
     #Cria um cliente S3 com credenciais explícitas
-    s3 = boto3.client(
-        's3',
-        aws_access_key_id=aws_access_key_id,
-        aws_secret_access_key=aws_secret_access_key,
-        region_name=aws_region
+    session = boto3.Session(
+        aws_access_key_id= AWS_ACCESS_KEY_ID,
+        aws_secret_access_key= AWS_SECRET_ACCESS_KEY,
+        region_name= AWS_REGION
     )
+
+    s3 = session.client('s3')
 
     try:
         # Lista todos os buckets
